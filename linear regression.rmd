@@ -1,0 +1,40 @@
+---
+title: "Regression Analysis"
+author: "MADAN"
+date: "4/12/2022"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(ggplot2)
+```
+
+
+```{r}
+fuel_consumption <- read_csv("fuel-consumptions.csv")
+colnames(fuel_consumption)[10] <- "Consumption"
+fuel_consumption
+```
+
+```{r}
+regression <- lm(fuel_consumption$Consumption~fuel_consumption$Cylinders)
+print(regression)
+```
+
+
+```{r}
+print(summary(regression))
+```
+
+
+
+```{r}
+ggplot(fuel_consumption,aes(Cylinders,Consumption)) +
+  geom_point() +
+  geom_smooth(method='lm', se=FALSE, color='turquoise4') +
+  theme_minimal() +
+  labs(x='Number of Cylinders', y='Fuel Consumption(Hwy (L/100 km))', title='Linear Regression of Fuel consumption') +
+  theme(plot.title = element_text(hjust=0.5, size=20, face='bold')) 
+```
+
